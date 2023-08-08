@@ -17,7 +17,7 @@
 - 内聚：一个模块内个元素彼此结合的紧密程度；重用和独立
 - 耦合：一个软件结构内不同模块之间的互连程度
 
-  ***
+***
 
 
 ## Java实现封装
@@ -129,5 +129,84 @@ public class PersonTest {
 ***
 
 
-## 类的第三个成员：迭代器（Constructor）
+## 类的第三个成员：迭代器/构造方法（Constructor）
 
+- **吐槽：其实就是在class里面又套着setXXX()和getXXX()加了一个和类同名的赋值函数**  
+- 当没有显式声明类中的构造器时，系统会默认提供一个无参的构造器并且该构造器的修饰符默认与类的修饰符相同
+
+  
+new 完对象时，所有成员变量都是默认值  
+如果需要赋别的值，需要挨个为它们再赋值，太麻烦了  
+能不能在 new 对象时，直接为当前对象的某个或所有成员变量直接赋值？
+
+迭代器：new 对象，并在 new 对象的时候可为实例变量赋值
+
+
+**语法**
+
+
+```
+[修饰符] class 类名{
+  [修饰符] 构造器名(){
+ // 实例初始化代码
+  }
+  [修饰符] 构造器名(参数列表){
+ // 实例初始化代码
+  }
+}
+```
+
+- 构造器名必须与它所在的类名必须相同
+- 没有返回值，**不要返回值类型**
+- 可以重载
+- 只能是权限修饰符，不能被static、final、synchronized、abstract、native修饰，不能有 return 语句返回值
+
+
+```
+public class Student {
+  private String name;
+  private int age;
+
+  // 无参构造
+  public Student() {}
+
+  // 有参构造
+public Student(String n,int a) {
+    name = n;
+    age = a;
+ }
+public String getName() {
+    return name;
+ }
+public void setName(String n) {
+    name = n;
+}
+public int getAge() {
+    return age;
+ }
+public void setAge(int a) {
+    age = a;
+ }
+public String getInfo(){
+   return "姓名：" + name +"，年龄：" + age;
+ }
+}
+
+public class TestStudent {
+    public static void main(String[] args) {
+
+  //调用无参构造创建学生对象
+    Student s1 = new Student();
+
+  //调用有参构造创建学生对象
+    Student s2 = new Student("vvvain",24);
+    System.out.println(s1.getInfo());
+    System.out.println(s2.getInfo());
+    }
+}
+
+```
+
+
+
+# 继承
