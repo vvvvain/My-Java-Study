@@ -41,15 +41,69 @@
 - 不能用abstract修饰私有方法、静态方法、final的方法、final的类
 
 
-# 接口（interface）
+
+# 接口 & 关键字：interface
+
+
+Java的软件系统会有很多模块组成，各模块之间也应采用*面向接口*的*低耦合*  
+
+接口=规范=标准，定义一组规则  
+
+例：Java程序能否连接使用某种数据库产品，要看该产品能否实现Java设计的JDBC规范  
+
+![P@(1{{KT7K5V4}D@4`IKAOI](https://github.com/vvvvain/My-Java-Study/assets/71417179/5612a7ec-4787-40b4-b5ca-e639ff1d2b9d)
+
+
+一种引用数据类型，与类的定义类似，但是使用interface关键字，也会被编译成.class文件  
+
+引用数据类型：数组、类、枚举、接口、注解
+
+
+```
+[修饰符] interface 接口名{
+  // 接口的成员列表：
+  // 公共的静态常量
+  // 公共的抽象方法
+ 
+  // 公共的默认方法（JDK1.8 以上）
+  // 公共的静态方法（JDK1.8 以上）
+  // 私有方法（JDK1.9 以上）
+}
+```
+
+
+待补充：一些其它说明，关于多实现和多继承
+
+
+![H8UH97Y2`GSS0YVMTMYR(EB](https://github.com/vvvvain/My-Java-Study/assets/71417179/cb389bcc-5e69-4862-accc-5e691cc6e9eb)
+
 
 
 
 # 内部类
 
 
+将一个类A定义在另一个类B里面，则A称为*内部类*，B是*外部类*   
 
-# 注解
+一个完整结构A只为B服务、不在其他地方单独使用，并且B需要这个完整结构
+
+遵循：高内聚、低耦合的OO开发原则
+
+![BC(2Q3NERYF P%IPRS 21_Q](https://github.com/vvvvain/My-Java-Study/assets/71417179/b40a5dd9-d539-45e1-a941-c5ca8de000c0)
+
+
+ps:涉及到设计模式，后面再补充吧
+
+
+
+# 注解（Annotation）
+
+
+例：@Override  
+
+给编译器或其他程序看的“注释”  
+
+一定程度上可以说：框架 = 注解 + 反射 + 设计模式
 
 
 # 包装类
