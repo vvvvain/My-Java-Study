@@ -171,25 +171,25 @@ public class Student {
   public Student() {}
 
   // 有参构造
-public Student(String n,int a) {
+  public Student(String n,int a) {
     name = n;
     age = a;
- }
-public String getName() {
+   }
+  public String getName() {
     return name;
- }
-public void setName(String n) {
+   }
+  public void setName(String n) {
     name = n;
-}
-public int getAge() {
+  }
+  public int getAge() {
     return age;
- }
-public void setAge(int a) {
+   }
+  public void setAge(int a) {
     age = a;
- }
-public String getInfo(){
+   }
+  public String getInfo(){
    return "姓名：" + name +"，年龄：" + age;
- }
+   }
 }
 
 public class TestStudent {
@@ -207,8 +207,130 @@ public class TestStudent {
 
 ```
 
+***
+## 一些补充：JavaBean
+
+
+一种Java写成的可重用组件 
+
+符合以下标准的Java类：
+- 类是公共的
+- 有一个无参的公共的构造器
+- 有属性，且有对应的get、set方法
+
+用户可以使用JavaBean将功能、处理、值、数据库访问和其他任何可以用Java代码创造的对象进行打包
+
 
 
 # 继承
 
+## 关键字：this
+
+- 可调用的结构：成员变量、方法、构造器
+- 在方法（实例方法或非static方法）内部使用，表示调用该方法的对象
+  - 形参与成员变量同名，必须使用
+- 在构造器内部使用，表示构造器正在初始化的对象
+  - this()：调用本类的无参构造器
+  - this(实参列表)：调用本类的有参构造器
+  - 声明只能在构造器首行
+  - 不能递归调用，比如调用自身构造器
+- 使用this访问属性和方法时，若未在本类中找到，会从父类查找
+
+
+
+```
+public class Student {
+  private String name;
+  private int age;
+
+ // 无参构造
+ public Student() {
+// this("",18);//调用本类有参构造器
+ }
+
+ // 有参构造
+ public Student(String name) {
+ this();//调用本类无参构造器
+ this.name = name;
+ }
+
+ // 有参构造
+  public Student(String name,int age){
+  this(name);//调用本类中有一个 String 参数的构造器
+  this.age = age;
+  }
+
+  public String getName() {
+  return name;
+  }
+
+  public void setName(String name) {
+  this.name = name;
+  }
+
+  public int getAge() {
+  return age;
+  }
+
+  public void setAge(int age) {
+  this.age = age;
+  }
+}
+```
+
+
+## 概述
+
+
+- 多个类中存在相同属性和行为时，将这些内容抽取到单独一个类中，那么多个类中无需再定义这些属性和行为，只需要和抽取出来的类构成继承关系
+- 减少代码冗余，提高复用性
+- 有利于功能的扩展
+- 为多态的使用提供了前提
+
+**语法：关键字-extends**
+
+```
+[修饰符] class 类 A {
+  ...
+}
+[修饰符] class 类 B extends 类 A {
+  ...
+}
+```
+
+
+**说明**
+
+- 当子类对象调用方法时，编译器会先在子类模板中看该类是否有这个方法，如果没找到，会看它的父类甚至父类的父类是否声明了这个方法，遵循*从下往上找的顺序*，找到了就停止，一直到根父类都没有找到，就会报编译错误
+- 子类不能直接访问父类中的私有（private）成员变量和方法，可通过继承的get/set方法访问
+- 子类是父类的扩展，而非子集
+- Java支持多层继承：顶层父类是Object类
+- 一个父类有多个子类，一个子类只能有一个父类（不支持多重继承）
+
+
+## 方法的重写（override/overwrite）
+
+- 子类可以对从父类中继承来的方法进行改造，也称为方法的重置、覆盖
+- 在程序执行时，子类的方法将覆盖父类的方法
+- @Override使用说明：
+  - 写在方法上面，用来检测是不是满足重写方法的要求
+  - 这个注解就算不写，只要满足要求，也是正确的方法覆盖重写
+  - 建议保留，这样编译器可以帮助我们检查格式，另外也可以让阅读源代码的程序员清晰的知道这是一个重写的方法
+- 要求
+  - 子父类具有相同的*方法名称、参数列表*
+  - 子类重写方法的返回值类型*不能大于*父类被重写的~，若是void则必须相同
+  - 子类重写方法的访问权限*不能小于*父类被重写的~（public>protected>缺省>private）
+  - 子类与父类同名同参数的方法必须同时声明为非static（即为重写），或是static（不是重写）
+  - 不能被重写：父类的私有方法，跨包的父类缺省的方法
+  - 子类重写方法抛出的异常*不能大于*父类被重写的~
+- 重载：方法名相同，形参列表不同
+
+
+## 封装性的4种权限修饰符
+
+![K3R5SX(X`36M8`1Y5Y$0(SY](https://github.com/vvvvain/My-Java-Study/assets/71417179/093530ea-2f20-4a1c-b525-cbd13cacc2cc)
+
+
+1. 外部类跨包使用必须是public，不能缺省！！！否则仅限于本包使用
+2. 跨包使用时，如果类的权限修饰符缺省，成员权限修饰符>类的修饰符也没有意义！！！
 
